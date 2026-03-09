@@ -1,6 +1,7 @@
+// src/pages/FullService.jsx
 import React from "react";
 import { motion } from "framer-motion";
-import { Check, Clock, Shield, Sparkles } from "lucide-react";
+import { Clock, Shield, Sparkles } from "lucide-react";
 import { fullServiceTiers } from "@/config/services";
 import PageHero from "@/components/shared/PageHero";
 import CTABanner from "@/components/shared/CTABanner";
@@ -8,9 +9,21 @@ import PricingCard from "@/components/shared/PricingCard";
 import SectionHeading from "@/components/shared/SectionHeading";
 
 const features = [
-  { icon: Sparkles, title: "Interior + Exterior", desc: "Every package covers both the inside and outside of your vehicle for a complete transformation." },
-  { icon: Shield, title: "Paint Protection", desc: "Our top-tier packages include orbital polish and wax to protect your paint and restore shine." },
-  { icon: Clock, title: "Done at Your Door", desc: "We come to your home or workplace — no waiting at a shop, no disruption to your day." },
+  {
+    icon: Sparkles,
+    title: "Interior + Exterior",
+    desc: "Every package covers both the inside and outside of your vehicle for a complete transformation.",
+  },
+  {
+    icon: Shield,
+    title: "Paint Protection",
+    desc: "Our top-tier packages include orbital polish and wax to protect your paint and restore shine.",
+  },
+  {
+    icon: Clock,
+    title: "Done at Your Door",
+    desc: "We come to your home or workplace — no waiting at a shop, no disruption to your day.",
+  },
 ];
 
 export default function FullService() {
@@ -23,33 +36,61 @@ export default function FullService() {
         image="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=1920&q=80"
       />
 
-      {/* Feature Cards */}
-      <section className="py-20 bg-zinc-900/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {features.map((f, i) => (
-              <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="p-7 rounded-2xl bg-zinc-900/60 border border-white/5 hover:border-amber-500/20 transition-all"
-              >
-                <div className="w-11 h-11 rounded-xl bg-amber-500/10 flex items-center justify-center mb-5">
-                  <f.icon className="w-5 h-5 text-amber-500" />
-                </div>
-                <h3 className="font-semibold mb-2">{f.title}</h3>
-                <p className="text-zinc-400 text-sm leading-relaxed">{f.desc}</p>
-              </motion.div>
-            ))}
+      <section
+        className="py-20"
+        style={{ backgroundColor: "rgba(9, 12, 18, 0.65)" }}
+      >
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+
+              return (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="rounded-2xl border p-7 transition-all duration-300"
+                  style={{
+                    backgroundColor: "rgba(18, 20, 27, 0.85)",
+                    borderColor: "var(--color-border)",
+                    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+                  }}
+                >
+                  <div
+                    className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl"
+                    style={{ backgroundColor: "rgba(37, 99, 235, 0.12)" }}
+                  >
+                    <Icon
+                      className="h-5 w-5"
+                      style={{ color: "var(--color-accent)" }}
+                    />
+                  </div>
+
+                  <h3 className="mb-2 font-semibold text-white">
+                    {feature.title}
+                  </h3>
+
+                  <p
+                    className="text-sm leading-relaxed"
+                    style={{ color: "var(--color-text-secondary)" }}
+                  >
+                    {feature.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Packages */}
-      <section className="py-24 bg-zinc-950">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <section
+        className="py-24"
+        style={{ backgroundColor: "var(--color-bg)" }}
+      >
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -62,23 +103,38 @@ export default function FullService() {
             />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {fullServiceTiers.map((tier, i) => (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {fullServiceTiers.map((tier, index) => (
               <motion.div
                 key={tier.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: index * 0.1 }}
               >
                 <PricingCard tier={tier} />
               </motion.div>
             ))}
           </div>
 
-          <p className="mt-8 text-center text-zinc-600 text-xs">
-            * Prices may vary based on vehicle condition. Contact us for a personalized quote.
-          </p>
+          <div
+            className="mt-10 rounded-[14px] border p-5 text-center"
+            style={{
+              backgroundColor: "rgba(18, 20, 27, 0.85)",
+              borderColor: "var(--color-border)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+            }}
+          >
+            <p
+              className="text-sm"
+              style={{ color: "var(--color-text-secondary)" }}
+            >
+              Prices may vary based on vehicle condition. Heavily soiled
+              vehicles, excessive pet hair, and specialty stain removal may
+              require additional time and cost. Contact us for a personalized
+              quote.
+            </p>
+          </div>
         </div>
       </section>
 

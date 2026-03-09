@@ -1,3 +1,4 @@
+// src/components/home/HeroSection.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -13,12 +14,17 @@ const trustPoints = [
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section
+      className="relative flex items-center overflow-hidden"
+      style={{
+        minHeight: "clamp(620px, 78vh, 860px)",
+      }}
+    >
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=1920&q=80"
           alt="Premium car detailing"
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover object-center"
         />
 
         <div
@@ -32,19 +38,20 @@ export default function HeroSection() {
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(to top, rgba(11,12,16,.80), transparent)",
+            background:
+              "linear-gradient(to top, rgba(11,12,16,.80), transparent)",
           }}
         />
       </div>
 
       <div className="relative w-full">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-28 pb-20">
+        <div className="mx-auto max-w-7xl px-6 pt-28 pb-20 lg:px-8 lg:pt-32 lg:pb-24">
           <div className="max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-xs font-semibold tracking-[0.3em] uppercase mb-5"
+              className="mb-5 text-xs font-semibold uppercase tracking-[0.3em]"
               style={{ color: "var(--color-accent)" }}
             >
               Greater Houston Area
@@ -54,7 +61,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white"
+              className="text-balance text-4xl font-bold leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-6xl"
             >
               {site.tagline}
             </motion.h1>
@@ -63,10 +70,10 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-6 text-zinc-300 text-lg leading-relaxed max-w-xl"
+              className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-300"
             >
-              Professional mobile detailing delivered directly to your home or workplace.
-              No driving. No waiting. Just results.
+              Professional mobile detailing delivered directly to your home or
+              workplace. No driving. No waiting. Just results.
             </motion.p>
 
             <motion.div
@@ -78,9 +85,9 @@ export default function HeroSection() {
               {trustPoints.map((pt) => (
                 <div
                   key={pt}
-                  className="flex items-center gap-2.5 text-zinc-400 text-sm"
+                  className="flex items-center gap-2.5 text-sm text-zinc-400"
                 >
-                  <CheckCircle className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                  <CheckCircle className="h-4 w-4 flex-shrink-0 text-blue-400" />
                   {pt}
                 </div>
               ))}
@@ -90,11 +97,11 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-10 flex flex-col sm:flex-row gap-4"
+              className="mt-10 flex flex-col gap-4 sm:flex-row"
             >
               <a
                 href={site.phoneHref}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-white rounded-[14px] font-semibold text-base transition-all duration-200 border"
+                className="inline-flex items-center justify-center gap-2 rounded-[14px] border px-7 py-3.5 text-base font-semibold text-white transition-all duration-200"
                 style={{
                   minWidth: "180px",
                   backgroundColor: "rgba(12, 17, 28, 0.88)",
@@ -104,13 +111,13 @@ export default function HeroSection() {
                   backdropFilter: "blur(10px)",
                 }}
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="h-4 w-4" />
                 {site.phone}
               </a>
 
               <Link
                 to={createPageUrl("Contact")}
-                className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 text-white rounded-[14px] font-semibold text-base transition-all duration-200 border"
+                className="group inline-flex items-center justify-center gap-2 rounded-[14px] border px-7 py-3.5 text-base font-semibold text-white transition-all duration-200"
                 style={{
                   minWidth: "190px",
                   backgroundColor: "rgba(24, 28, 38, 0.92)",
@@ -120,7 +127,7 @@ export default function HeroSection() {
                 }}
               >
                 Send Message
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
           </div>

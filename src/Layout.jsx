@@ -159,9 +159,6 @@ export default function Layout({ children }) {
       {/* Main Content */}
       <main>{children}</main>
 
-      {/* Footer CTA Strip */}
-      <FooterCTA />
-
       {/* Footer */}
       <footer className="border-t" style={{ backgroundColor: '#07080c', borderColor: 'var(--color-border)' }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">

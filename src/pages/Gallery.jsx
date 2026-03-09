@@ -392,11 +392,6 @@ export default function Gallery() {
         </div>
       </section>
 
-      <CTABanner
-        heading="Book Your Detail Today"
-        subtext="Professional mobile detailing delivered to your home or workplace. 7 days a week, 7 AM – 6 PM."
-      />
-
       <AnimatePresence>
         {selectedItem && (
           <motion.div
