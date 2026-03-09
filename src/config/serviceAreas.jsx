@@ -1,0 +1,17 @@
+export const serviceAreas = [
+  { name: "Spring",            base: true },
+  { name: "The Woodlands" },
+  { name: "Conroe" },
+  { name: "Tomball" },
+  { name: "Katy" },
+  { name: "Sugar Land" },
+  { name: "Pearland" },
+  { name: "Friendswood" },
+  { name: "League City" },
+  { name: "Pasadena" },
+  { name: "Baytown" },
+  { name: "Cypress" },
+  { name: "Humble" },
+  { name: "Kingwood" },
+  { name: "Houston (Metro)" },
+];
