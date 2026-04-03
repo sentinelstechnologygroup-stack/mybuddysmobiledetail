@@ -1,201 +1,21 @@
+// src/pages/Gallery.jsx
+
 import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Expand, X, Phone, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import PageHero from "@/components/shared/PageHero";
-import CTABanner from "@/components/shared/CTABanner";
 import { site } from "@/config/site";
 import { createPageUrl } from "@/utils";
-
-const galleryItems = [
-  {
-    id: 1,
-    title: "Rear Wash Detail",
-    category: "All",
-    image:
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 2,
-    title: "Audi Exterior",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1542282088-fe8426682b8f?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 3,
-    title: "Road Shine Finish",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 4,
-    title: "White Sedan Detail",
-    category: "Sedan",
-    image:
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 5,
-    title: "Sunset Gloss",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 6,
-    title: "Black Coupe Finish",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 7,
-    title: "Red Performance Car",
-    category: "Sports Car",
-    image:
-      "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 8,
-    title: "Interior Work",
-    category: "Interior",
-    image:
-      "https://images.unsplash.com/photo-1517026575980-3e1e2dedeab4?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 9,
-    title: "SUV Detail",
-    category: "SUV",
-    image:
-      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 10,
-    title: "Blue Exotic",
-    category: "Sports Car",
-    image:
-      "https://images.unsplash.com/photo-1550355291-bbee04a92027?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 11,
-    title: "Red Coupe",
-    category: "Sports Car",
-    image:
-      "https://images.unsplash.com/photo-1493238792000-8113da705763?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 12,
-    title: "Classic Blue Finish",
-    category: "Sedan",
-    image:
-      "https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 13,
-    title: "Classic Beetle",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 14,
-    title: "Client Delivery",
-    category: "All",
-    image:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 15,
-    title: "Bike Detail",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1505705694340-019e1e335916?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 16,
-    title: "Estate Drive Finish",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 17,
-    title: "Engine Bay Detail",
-    category: "Engine",
-    image:
-      "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 18,
-    title: "Hood Reflection",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 19,
-    title: "Night Finish",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 20,
-    title: "Ceramic Coating",
-    category: "Coating",
-    image:
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=900&q=80",
-    height: "h-44",
-  },
-  {
-    id: 21,
-    title: "Studio Reflection",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1504215680853-026ed2a45def?w=900&q=80",
-    height: "h-44",
-  },
-];
-
-const filters = [
-  "All",
-  "Exterior",
-  "Interior",
-  "Sedan",
-  "SUV",
-  "Sports Car",
-  "Coating",
-  "Engine",
-];
+import { galleryImages, galleryFilters } from "@/config/galleryImages";
 
 export default function Gallery() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const filteredItems = useMemo(() => {
-    if (activeFilter === "All") return galleryItems;
-    return galleryItems.filter((item) => item.category === activeFilter);
+    if (activeFilter === "All") return galleryImages;
+    return galleryImages.filter((item) => item.category === activeFilter);
   }, [activeFilter]);
 
   const selectedItem =
@@ -220,8 +40,8 @@ export default function Gallery() {
       <PageHero
         eyebrow="Gallery"
         title="Our Work in Pictures"
-        subtitle="Browse real results from real vehicles detailed by a mobile detailing team focused on clean finishes, restored shine, and consistent quality."
-        image="https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?w=1920&q=80"
+        subtitle="Browse real detailing results from actual vehicles serviced by My Buddy’s Mobile Detail."
+        image="/images/home/hero.jpg"
       />
 
       <section
@@ -234,25 +54,29 @@ export default function Gallery() {
               className="text-xs font-semibold tracking-[0.25em] uppercase mb-3"
               style={{ color: "var(--color-accent)" }}
             >
-              Real Results, Real Vehicles
+              Real Results
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              From daily drivers to show-ready shine
+              Mobile detailing results you can actually see
             </h2>
 
             <p
               className="mt-3 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed"
               style={{ color: "var(--color-text-secondary)" }}
             >
-              Tap any image to view it larger. Use the filters to browse exterior,
-              interior, ceramic coating, engine bay, and more.
+              Tap any image to open it larger. Use the filters to browse by
+              service type.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-            {filters.map((filter) => {
+            {galleryFilters.map((filter) => {
               const isActive = activeFilter === filter;
+              const count =
+                filter === "All"
+                  ? galleryImages.length
+                  : galleryImages.filter((item) => item.category === filter).length;
 
               return (
                 <button
@@ -274,6 +98,7 @@ export default function Gallery() {
                   }}
                 >
                   {filter}
+                  <span className="ml-2 opacity-70">({count})</span>
                 </button>
               );
             })}
@@ -289,7 +114,7 @@ export default function Gallery() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.28, delay: index * 0.02 }}
                 onClick={() => setSelectedIndex(index)}
-                className={`group relative overflow-hidden rounded-xl text-left ${item.height}`}
+                className="group relative overflow-hidden rounded-xl text-left aspect-square"
                 style={{
                   backgroundColor: "rgba(18, 20, 27, 0.92)",
                   border: "1px solid rgba(255, 255, 255, 0.12)",
@@ -297,8 +122,8 @@ export default function Gallery() {
                 }}
               >
                 <img
-                  src={item.image}
-                  alt={item.title}
+                  src={item.src}
+                  alt={item.caption}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
@@ -332,7 +157,7 @@ export default function Gallery() {
 
                 <div className="absolute bottom-0 left-0 right-0 p-3">
                   <div className="text-sm font-semibold text-white leading-snug">
-                    {item.title}
+                    {item.caption}
                   </div>
                 </div>
               </motion.button>
@@ -344,7 +169,7 @@ export default function Gallery() {
               className="text-xs font-semibold tracking-[0.25em] uppercase mb-3"
               style={{ color: "var(--color-accent)" }}
             >
-              Like What You See?
+              Ready to Book?
             </div>
 
             <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
@@ -355,8 +180,8 @@ export default function Gallery() {
               className="mt-3 max-w-2xl mx-auto text-sm leading-relaxed"
               style={{ color: "var(--color-text-secondary)" }}
             >
-              Book mobile detailing at your home or workplace. Fast scheduling,
-              consistent quality, and professional results delivered to your door.
+              Mobile detailing at your home or workplace with fast scheduling and
+              professional results.
             </p>
 
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -429,9 +254,9 @@ export default function Gallery() {
               </button>
 
               <img
-                src={selectedItem.image}
-                alt={selectedItem.title}
-                className="w-full max-h-[75vh] object-cover"
+                src={selectedItem.src}
+                alt={selectedItem.caption}
+                className="w-full max-h-[75vh] object-contain bg-black"
               />
 
               <div className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -443,7 +268,7 @@ export default function Gallery() {
                     {selectedItem.category}
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold text-white">
-                    {selectedItem.title}
+                    {selectedItem.caption}
                   </h3>
                 </div>
 
