@@ -1,4 +1,5 @@
 // src/pages/BeforeAfter.jsx
+// @ts-nocheck
 
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -17,9 +18,7 @@ export default function BeforeAfter() {
 
   const filteredItems = useMemo(() => {
     if (activeFilter === "All") return beforeAfterItems;
-    return beforeAfterItems.filter(
-      (item) => item.category === activeFilter
-    );
+    return beforeAfterItems.filter((item) => item.category === activeFilter);
   }, [activeFilter]);
 
   return (
@@ -39,7 +38,6 @@ export default function BeforeAfter() {
             subtitle="Real results from real vehicles."
           />
 
-          {/* FILTER BUTTONS */}
           <div className="flex flex-wrap justify-center gap-2 mb-12">
             {filters.map((filter) => {
               const isActive = activeFilter === filter;
@@ -75,7 +73,6 @@ export default function BeforeAfter() {
             })}
           </div>
 
-          {/* GRID — NOW 3 WIDE */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredItems.map((item, index) => (
               <motion.div
@@ -94,6 +91,7 @@ export default function BeforeAfter() {
                   <BeforeAfterSlider
                     before={item.before}
                     after={item.after}
+                    showHint={false}
                   />
                 </button>
               </motion.div>
@@ -107,7 +105,6 @@ export default function BeforeAfter() {
         subtext="Book mobile detailing and let us bring the clean directly to you."
       />
 
-      {/* LIGHTBOX */}
       {activeIndex !== null && (
         <GalleryLightbox
           items={filteredItems}
