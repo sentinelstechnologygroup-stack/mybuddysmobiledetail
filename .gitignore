@@ -1,7 +1,20 @@
-node_modules
-dist
-.vite
+# .gitignore
+
+node_modules/
+dist/
+.vite/
+.vercel/
 .env
-.env.local
-.DS_Store
+.env.*
 *.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# optional: keep huge originals out of git
+*.psd
+*.ai
+*.tif
+*.tiff
