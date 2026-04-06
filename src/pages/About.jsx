@@ -37,11 +37,13 @@ const reasons = [
 export default function About() {
   return (
     <div className="pt-20">
-      <PageHero
-        eyebrow="Our Story"
-        title="About Us"
-        image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80"
-      />
+    <PageHero
+      eyebrow="About Us"
+      title="Precision. Experience. Results."
+      subtitle="We bring professional-grade detailing directly to your home or workplace — delivering showroom-quality results without the hassle."
+      image="/images/about/about-hero.png"
+      imagePosition="center center"
+    />
 
       {/* Founder */}
       <section className="py-24 lg:py-32" style={{ backgroundColor: 'var(--color-bg)' }}>

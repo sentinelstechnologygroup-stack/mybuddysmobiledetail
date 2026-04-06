@@ -13,7 +13,7 @@ export default function ALaCarte() {
         eyebrow="À La Carte"
         title="Specialty Add-On Services"
         subtitle="Individual services to address specific needs. Mix and match to build a custom detailing package."
-        image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1920&q=80"
+        image="/images/services/a-la-carte-hero.png"
       />
 
       <section className="py-24 bg-zinc-950">

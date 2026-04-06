@@ -33,7 +33,7 @@ export default function PaintCorrectionCeramic() {
         eyebrow="Paint Correction & Ceramic Coating"
         title="Showroom Condition — Lasting Years"
         subtitle="Restore your paint to factory-like clarity, then lock it in with professional-grade ceramic protection."
-        image="https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=1920&q=80"
+        image="/images/services/paint-correction-ceramic-thumbnail.png"
       />
 
       <section

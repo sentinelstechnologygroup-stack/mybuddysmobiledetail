@@ -8,6 +8,7 @@ export const galleryFilters = [
   "Ceramic Coating",
   "Engine Bay",
   "Wheels & Tires",
+ 
 ];
 
 export const galleryImages = [
@@ -46,37 +47,21 @@ export const galleryImages = [
   },
 
   // PAINT CORRECTION
-  {
-    id: 6,
-    src: "/images/gallery/paint-correction-01.jpg",
-    category: "Paint Correction",
-    caption: "Paint correction results",
-  },
-  {
-    id: 7,
-    src: "/images/gallery/paint-correction-02.jpg",
-    category: "Paint Correction",
-    caption: "Swirl reduction and gloss",
-  },
+
 
   // CERAMIC COATING
-  {
-    id: 8,
-    src: "/images/gallery/ceramic-01.jpg",
-    category: "Ceramic Coating",
-    caption: "Ceramic coating application",
-  },
-  {
-    id: 9,
-    src: "/images/gallery/ceramic-02.jpg",
-    category: "Ceramic Coating",
-    caption: "Protected high-gloss finish",
-  },
+
 
   // ENGINE BAY
   {
     id: 10,
     src: "/images/gallery/engine-bay-01.jpg",
+    category: "Engine Bay",
+    caption: "Engine bay detail",
+  },
+    {
+    id: 10.2,
+    src: "/images/gallery/engine-bay-02.jpg",
     category: "Engine Bay",
     caption: "Engine bay detail",
   },
@@ -100,6 +85,22 @@ export const galleryImages = [
 // ✅ BEFORE / AFTER (UPDATED WITH CATEGORIES)
 
 export const beforeAfterItems = [
+ 
+   // Scratch Removal
+  {
+    id: 1,
+    category: "Scratch Removal",
+    label: "Restore Your Paint. Remove Scratches. Bring Back the Shine.",
+    before: { src: "/images/before-after/scratch-removal/scratch-before-01.jpg" },
+    after: { src: "/images/before-after/scratch-removal/scratch-after-01.jpg" },
+  },
+  {
+    id: 2,
+    category: "Scratch Removal",
+    label: "Restore Your Paint. Remove Scratches. Bring Back the Shine.",
+    before: { src: "/images/before-after/scratch-removal/scratch-before-02.jpg" },
+    after: { src: "/images/before-after/scratch-removal/scratch-after-02.jpg" },
+  },
   // HEADLIGHTS
   {
     id: 1,
@@ -199,33 +200,40 @@ export const beforeAfterItems = [
     before: { src: "/images/before-after/headlights/headlight-before-14.jpg" },
     after: { src: "/images/before-after/headlights/headlight-after-14.jpg" },
   },
-  // VEHICLES
+  // Vehicles
+  {
+    id: 1,
+    category: "Vehicles",
+    label: "",
+    before: { src: "/images/before-after/exterior/exterior-before-01.jpg" },
+    after: { src: "/images/before-after/exterior/exterior-after-01.jpg" },
+  },
+  {
+    id: 2,
+    category: "Vehicles",
+    label: "",
+    before: { src: "/images/before-after/exterior/exterior-before-02.jpg" },
+    after: { src: "/images/before-after/exterior/exterior-after-02.jpg" },
+  },
   {
     id: 3,
     category: "Vehicles",
-    label: "Exterior wash and shine",
-    before: { src: "/images/before-after/vehicle-before-01.jpg" },
-    after: { src: "/images/before-after/vehicle-after-01.jpg" },
+    label: "",
+    before: { src: "/images/before-after/exterior/exterior-before-03.jpg" },
+    after: { src: "/images/before-after/exterior/exterior-after-03.jpg" },
   },
   {
     id: 4,
     category: "Vehicles",
-    label: "Interior deep clean",
-    before: { src: "/images/before-after/vehicle-before-02.jpg" },
-    after: { src: "/images/before-after/vehicle-after-02.jpg" },
+    label: "",
+    before: { src: "/images/before-after/exterior/exterior-before-04.jpg" },
+    after: { src: "/images/before-after/exterior/exterior-after-04.jpg" },
   },
-  {
-    id: 5,
-    category: "Vehicles",
-    label: "Full detail transformation",
-    before: { src: "/images/before-after/vehicle-before-03.jpg" },
-    after: { src: "/images/before-after/vehicle-after-03.jpg" },
-  },
-  {
-    id: 6,
-    category: "Vehicles",
-    label: "Wheel and tire restoration",
-    before: { src: "/images/before-after/vehicle-before-04.jpg" },
-    after: { src: "/images/before-after/vehicle-after-04.jpg" },
-  },
+
+
+
+
+
+
+
 ];

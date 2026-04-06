@@ -33,7 +33,7 @@ export default function FullService() {
         eyebrow="Full Service Detail"
         title="Complete Inside & Out"
         subtitle="From a basic clean to our premium Red Carpet Detail — every package covers both your interior and exterior."
-        image="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=1920&q=80"
+        image="/images/services/full-service-hero.png"
       />
 
       <section

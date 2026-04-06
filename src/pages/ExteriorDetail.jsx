@@ -33,7 +33,7 @@ export default function ExteriorDetail() {
         eyebrow="Exterior Detail"
         title="Show-Quality Shine"
         subtitle="Eco-friendly soaps, power washing, and your choice of wax protection — all delivered to your driveway."
-        image="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=1920&q=80"
+        image="/images/services/exterior-detail-hero.png"
       />
 
       <section

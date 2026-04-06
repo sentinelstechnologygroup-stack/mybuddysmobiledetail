@@ -41,7 +41,7 @@ export default function Gallery() {
         eyebrow="Gallery"
         title="Our Work in Pictures"
         subtitle="Browse real detailing results from actual vehicles serviced by My Buddy’s Mobile Detail."
-        image="/images/home/hero.jpg"
+        image="/images/gallery/hero.jpeg"
       />
 
       <section

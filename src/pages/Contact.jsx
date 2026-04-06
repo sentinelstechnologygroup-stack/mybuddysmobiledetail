@@ -1,9 +1,29 @@
+// src/pages/Contact.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  Send,
+  CheckCircle,
+} from "lucide-react";
 import { site } from "../config/site.jsx";
+import PageHero from "@/components/shared/PageHero";
+
+/**
+ * @typedef {Object} ContactFormState
+ * @property {string} name
+ * @property {string} phone
+ * @property {string} email
+ * @property {string} zipcode
+ * @property {string} service
+ * @property {string} message
+ */
 
 export default function Contact() {
+  /** @type {[ContactFormState, React.Dispatch<React.SetStateAction<ContactFormState>>]} */
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -16,10 +36,17 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  /**
+   * @param {keyof ContactFormState} key
+   * @param {string} value
+   */
   const updateField = (key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
+  /**
+   * @param {React.FormEvent<HTMLFormElement>} e
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     setSending(true);
@@ -32,53 +59,14 @@ export default function Contact() {
 
   return (
     <div className="pt-20" style={{ backgroundColor: "var(--color-bg)" }}>
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=1920&q=80"
-            alt="Mobile detailing contact page"
-            className="w-full h-full object-cover"
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(11,12,16,0.88), rgba(11,12,16,0.68), rgba(11,12,16,0.78))",
-            }}
-          />
-        </div>
+      <PageHero
+        eyebrow="Contact"
+        title="Book Your Mobile Detail"
+        subtitle="Tell us about your vehicle and the service you need. We’ll come to your home or workplace and help get you scheduled."
+        image="/images/contact/contact-hero.jpg"
+        imagePosition="center center"
+      />
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-28">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="max-w-3xl"
-          >
-            <div
-              className="text-xs font-semibold tracking-[0.28em] uppercase mb-4"
-              style={{ color: "var(--color-accent)" }}
-            >
-              Contact
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
-              Book Your Mobile Detail
-            </h1>
-
-            <p
-              className="mt-5 text-base sm:text-lg leading-relaxed max-w-2xl"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
-              Tell us about your vehicle and the service you need. We’ll come to
-              your home or workplace and help get you scheduled.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Main */}
       <section className="py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -173,14 +161,14 @@ export default function Contact() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <Field
                       label="Name"
-                      required
+                      required={true}
                       placeholder="Your full name"
                       value={form.name}
                       onChange={(e) => updateField("name", e.target.value)}
                     />
                     <Field
                       label="Phone"
-                      required
+                      required={true}
                       placeholder="Best number to reach you"
                       value={form.phone}
                       onChange={(e) => updateField("phone", e.target.value)}
@@ -191,7 +179,7 @@ export default function Contact() {
                     <Field
                       label="Email"
                       type="email"
-                      required
+                      required={true}
                       placeholder="you@example.com"
                       value={form.email}
                       onChange={(e) => updateField("email", e.target.value)}
@@ -225,9 +213,7 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label
-                      className="block text-zinc-400 text-xs uppercase tracking-wider mb-2"
-                    >
+                    <label className="block text-zinc-400 text-xs uppercase tracking-wider mb-2">
                       Message
                     </label>
                     <textarea
@@ -313,14 +299,29 @@ export default function Contact() {
   );
 }
 
-function Field({
-  label,
-  type = "text",
-  required = false,
-  placeholder,
-  value,
-  onChange,
-}) {
+/**
+ * @typedef {Object} FieldProps
+ * @property {string} label
+ * @property {string=} type
+ * @property {boolean=} required
+ * @property {string=} placeholder
+ * @property {string} value
+ * @property {(e: React.ChangeEvent<HTMLInputElement>) => void} onChange
+ */
+
+/**
+ * @param {FieldProps} props
+ */
+function Field(props) {
+  const {
+    label,
+    type = "text",
+    required = false,
+    placeholder = "",
+    value,
+    onChange,
+  } = props;
+
   return (
     <div>
       <label className="block text-zinc-400 text-xs uppercase tracking-wider mb-2">
@@ -338,7 +339,20 @@ function Field({
   );
 }
 
-function InfoRow({ icon: Icon, title, value, href = null }) {
+/**
+ * @typedef {Object} InfoRowProps
+ * @property {React.ComponentType<{ className?: string, style?: React.CSSProperties }>} icon
+ * @property {string} title
+ * @property {string} value
+ * @property {string=} href
+ */
+
+/**
+ * @param {InfoRowProps} props
+ */
+function InfoRow(props) {
+  const { icon: Icon, title, value, href = "" } = props;
+
   const content = (
     <div className="flex items-start gap-3">
       <div

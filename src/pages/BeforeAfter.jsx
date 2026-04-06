@@ -10,7 +10,7 @@ import GalleryLightbox from "@/components/gallery/GalleryLightbox";
 import BeforeAfterSlider from "@/components/gallery/BeforeAfterSlider";
 import { beforeAfterItems } from "@/config/galleryImages";
 
-const filters = ["All", "Headlights", "Vehicles"];
+const filters = ["All", "Headlights", "Scratch Removal", "Exterior",];
 
 export default function BeforeAfter() {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -27,7 +27,7 @@ export default function BeforeAfter() {
         eyebrow="Before & After"
         title="See the difference"
         subtitle="Drag the slider or click any comparison to expand."
-        image="/images/before-after/before-after-hero.jpg"
+        image="/images/before-after/before-after-hero.png"
       />
 
       <section className="py-24 bg-zinc-950">

@@ -20,7 +20,7 @@ export default function InteriorDetail() {
         eyebrow="Interior Detail"
         title="Fresh Cabin, Every Time"
         subtitle="From vacuuming and shampooing to conditioning and ceramic protection — your interior restored to like-new."
-        image="https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=1920&q=80"
+        image="/images/services/interior-detail-hero.png"
       />
 
       {/* Feature Cards */}
