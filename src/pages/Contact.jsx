@@ -8,6 +8,7 @@ import {
   Clock,
   Send,
   CheckCircle,
+  AlertCircle,
 } from "lucide-react";
 import { site } from "../config/site.jsx";
 import PageHero from "@/components/shared/PageHero";
@@ -22,19 +23,23 @@ import PageHero from "@/components/shared/PageHero";
  * @property {string} message
  */
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mdapbkol";
+
+const initialFormState = {
+  name: "",
+  phone: "",
+  email: "",
+  zipcode: "",
+  service: "",
+  message: "",
+};
+
 export default function Contact() {
   /** @type {[ContactFormState, React.Dispatch<React.SetStateAction<ContactFormState>>]} */
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    zipcode: "",
-    service: "",
-    message: "",
-  });
-
+  const [form, setForm] = useState(initialFormState);
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   /**
    * @param {keyof ContactFormState} key
@@ -47,14 +52,49 @@ export default function Contact() {
   /**
    * @param {React.FormEvent<HTMLFormElement>} e
    */
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
+    setErrorMessage("");
 
-    setTimeout(() => {
-      setSending(false);
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          zipcode: form.zipcode,
+          service: form.service,
+          message: form.message,
+          _subject: `New My Buddy's Mobile Detail lead from ${form.name}`,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          data?.errors?.[0]?.message ||
+            "Something went wrong while sending your message."
+        );
+      }
+
       setSubmitted(true);
-    }, 600);
+      setForm(initialFormState);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "We couldn't send your message right now. Please try again."
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -120,14 +160,14 @@ export default function Contact() {
 
                     <div>
                       <h3 className="text-xl font-bold text-white">
-                        Message Received
+                        Message Sent
                       </h3>
                       <p
                         className="text-sm"
                         style={{ color: "var(--color-text-secondary)" }}
                       >
-                        Thanks for reaching out. This demo form is ready for
-                        your real form handler.
+                        Thanks for reaching out. We’ve received your message and
+                        will follow up soon.
                       </p>
                     </div>
                   </div>
@@ -136,14 +176,8 @@ export default function Contact() {
                     type="button"
                     onClick={() => {
                       setSubmitted(false);
-                      setForm({
-                        name: "",
-                        phone: "",
-                        email: "",
-                        zipcode: "",
-                        service: "",
-                        message: "",
-                      });
+                      setErrorMessage("");
+                      setForm(initialFormState);
                     }}
                     className="inline-flex items-center justify-center px-6 py-3 rounded-[12px] font-semibold text-white border transition-all duration-200 hover:-translate-y-0.5"
                     style={{
@@ -218,12 +252,26 @@ export default function Contact() {
                     </label>
                     <textarea
                       rows={6}
+                      required
                       placeholder="Tell us about your vehicle and what services you're interested in..."
                       value={form.message}
                       onChange={(e) => updateField("message", e.target.value)}
                       className="w-full rounded-xl px-4 py-3 bg-zinc-900/80 border border-white/10 text-white focus:outline-none focus:ring-2 resize-none"
                     />
                   </div>
+
+                  {errorMessage ? (
+                    <div
+                      className="flex items-start gap-3 rounded-xl px-4 py-3"
+                      style={{
+                        backgroundColor: "rgba(127,29,29,0.20)",
+                        border: "1px solid rgba(248,113,113,0.30)",
+                      }}
+                    >
+                      <AlertCircle className="w-5 h-5 mt-0.5 text-red-400 flex-shrink-0" />
+                      <p className="text-sm text-red-200">{errorMessage}</p>
+                    </div>
+                  ) : null}
 
                   <button
                     type="submit"
@@ -378,7 +426,14 @@ function InfoRow(props) {
   );
 
   if (href) {
-    return <a href={href}>{content}</a>;
+    return (
+      <a
+        href={href}
+        className="transition-opacity duration-200 hover:opacity-80"
+      >
+        {content}
+      </a>
+    );
   }
 
   return <div>{content}</div>;
