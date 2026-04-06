@@ -61,8 +61,10 @@ export default function About() {
                   alt="Premium car detailing"
                   className="rounded-[14px] w-full aspect-[4/3] object-cover"
                 />
-                <div className="absolute inset-0 rounded-[14px] ring-1 ring-inset" style={{ ringColor: 'var(--border-light)' }} />
-                <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-blue-600/10 rounded-2xl -z-10" />
+                <div
+                  className="absolute inset-0 rounded-[14px] ring-1 ring-inset"
+                  style={{ borderColor: 'var(--border-light)' }}
+                />
               </div>
             </motion.div>
 
@@ -143,8 +145,12 @@ export default function About() {
                   borderColor: 'var(--color-border)',
                   boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
                 }}
-                onMouseEnter={(e) => e.target.style.borderColor = 'var(--color-primary)'}
-                onMouseLeave={(e) => e.target.style.borderColor = 'var(--color-border)'}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--color-primary)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--color-border)';
+                  }}
               >
                 <div className="w-12 h-12 rounded-[10px] flex items-center justify-center mb-6 transition-colors" style={{ backgroundColor: 'var(--color-primary-light)' }}>
                   <reason.icon className="w-6 h-6" style={{ color: 'var(--color-accent)' }} />
