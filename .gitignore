@@ -18,3 +18,5 @@ Thumbs.db
 *.ai
 *.tif
 *.tiff
+public/images/**/*.zip
+*.zip
