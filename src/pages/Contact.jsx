@@ -13,6 +13,8 @@ import {
 import { site } from "../config/site.jsx";
 import PageHero from "@/components/shared/PageHero";
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mdapbkol";
+
 /**
  * @typedef {Object} ContactFormState
  * @property {string} name
@@ -23,8 +25,7 @@ import PageHero from "@/components/shared/PageHero";
  * @property {string} message
  */
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mdapbkol";
-
+/** @type {ContactFormState} */
 const initialFormState = {
   name: "",
   phone: "",
@@ -58,30 +59,35 @@ export default function Contact() {
     setErrorMessage("");
 
     try {
+      const formData = new FormData();
+      formData.append("name", form.name);
+      formData.append("phone", form.phone);
+      formData.append("email", form.email);
+      formData.append("zipcode", form.zipcode);
+      formData.append("service", form.service);
+      formData.append("message", form.message);
+      formData.append(
+        "_subject",
+        `New My Buddy's Mobile Detail lead from ${form.name}`
+      );
+      formData.append("_replyto", form.email);
+
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
+        body: formData,
         headers: {
-          "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          name: form.name,
-          phone: form.phone,
-          email: form.email,
-          zipcode: form.zipcode,
-          service: form.service,
-          message: form.message,
-          _subject: `New My Buddy's Mobile Detail lead from ${form.name}`,
-        }),
       });
 
+      /** @type {{ errors?: Array<{ message?: string }> }} */
       const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(
-          data?.errors?.[0]?.message ||
-            "Something went wrong while sending your message."
-        );
+        const msg =
+          data?.errors?.map((item) => item.message || "Unknown error").join(", ") ||
+          "Something went wrong while sending your message.";
+        throw new Error(msg);
       }
 
       setSubmitted(true);
@@ -90,7 +96,7 @@ export default function Contact() {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "We couldn't send your message right now. Please try again."
+          : "Something went wrong while sending your message."
       );
     } finally {
       setSending(false);
@@ -195,6 +201,7 @@ export default function Contact() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <Field
                       label="Name"
+                      name="name"
                       required={true}
                       placeholder="Your full name"
                       value={form.name}
@@ -202,6 +209,7 @@ export default function Contact() {
                     />
                     <Field
                       label="Phone"
+                      name="phone"
                       required={true}
                       placeholder="Best number to reach you"
                       value={form.phone}
@@ -212,6 +220,7 @@ export default function Contact() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <Field
                       label="Email"
+                      name="email"
                       type="email"
                       required={true}
                       placeholder="you@example.com"
@@ -220,6 +229,7 @@ export default function Contact() {
                     />
                     <Field
                       label="ZIP Code"
+                      name="zipcode"
                       placeholder="77386"
                       value={form.zipcode}
                       onChange={(e) => updateField("zipcode", e.target.value)}
@@ -231,8 +241,12 @@ export default function Contact() {
                       Service Requested
                     </label>
                     <select
+                      name="service"
                       value={form.service}
-                      onChange={(e) => updateField("service", e.target.value)}
+                      onChange={
+                        /** @param {React.ChangeEvent<HTMLSelectElement>} e */
+                        (e) => updateField("service", e.target.value)
+                      }
                       className="w-full h-12 rounded-xl px-4 bg-zinc-900/80 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/40"
                     >
                       <option value="">Select a service</option>
@@ -251,14 +265,26 @@ export default function Contact() {
                       Message
                     </label>
                     <textarea
+                      name="message"
                       rows={6}
                       required
                       placeholder="Tell us about your vehicle and what services you're interested in..."
                       value={form.message}
-                      onChange={(e) => updateField("message", e.target.value)}
+                      onChange={
+                        /** @param {React.ChangeEvent<HTMLTextAreaElement>} e */
+                        (e) => updateField("message", e.target.value)
+                      }
                       className="w-full rounded-xl px-4 py-3 bg-zinc-900/80 border border-white/10 text-white focus:outline-none focus:ring-2 resize-none"
                     />
                   </div>
+
+                  <input
+                    type="text"
+                    name="_gotcha"
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
 
                   {errorMessage ? (
                     <div
@@ -350,6 +376,7 @@ export default function Contact() {
 /**
  * @typedef {Object} FieldProps
  * @property {string} label
+ * @property {string} name
  * @property {string=} type
  * @property {boolean=} required
  * @property {string=} placeholder
@@ -363,6 +390,7 @@ export default function Contact() {
 function Field(props) {
   const {
     label,
+    name,
     type = "text",
     required = false,
     placeholder = "",
@@ -376,6 +404,7 @@ function Field(props) {
         {label}
       </label>
       <input
+        name={name}
         type={type}
         required={required}
         placeholder={placeholder}
